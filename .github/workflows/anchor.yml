@@ -1,0 +1,27 @@
+name: Anchor and watchdog
+on:
+  schedule:
+    - cron: "17 * * * *"   # hourly watchdog; a new anchor file is written once a day
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: anchor
+jobs:
+  anchor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the site and save hashes
+        run: node scripts/anchor.mjs "${{ vars.LODESTAR_URL || 'https://getlodestar.ca' }}" anchors
+      - name: Publish a new anchor
+        if: always()
+        run: |
+          git add anchors
+          if ! git diff --cached --quiet; then
+            git config user.name "lodestar-anchor"
+            git config user.email "lodestar-anchor@users.noreply.github.com"
+            git commit -m "Anchor $(date -u +%F)"
+            git push
+          fi
