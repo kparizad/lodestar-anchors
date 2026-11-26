@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-11-26T01:48:55.396Z",
+  "build": "a23868b8ec77",
+  "signals": {
+    "rows": 21312,
+    "lastId": 21312,
+    "head": "c92d6b3efe17ee10a898375287213d3e9941c5af3bbbe0e9469b780a70ca05d0"
+  },
+  "weekly": {
+    "rows": 12,
+    "lastId": 12,
+    "head": "af0f1bda72b97095ad14efd359286bdd90fa173e7f9f4b6d1a1939d7845a6c73"
+  }
+}
